@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+
+<h1> Compañia: <%= @company.name %></h1>
+<h2> Empleados:</h2>
+<ul>
+<% @company.employees.each do |employee| %>
+	<li>
+		<%= employee.first_name%> 
+		<%= employee.last_name%> 
+		<%= employee.email%> 
+		<%= link_to 'Eliminar', company_employee_path(@company, employee), method: :delete %>
+	</li>
+<% end %>
+</ul>
+<%= form_with(model: [@company, Employee.new], local: true) do |form| %>
+	<%= form.hidden_field :company_id, value: @company.id %>
+
+	  <div class="field">
+	    <%= form.label :first_name %>
+	    <%= form.text_field :first_name %>
+	  </div>
+	  <div class="field">
+	    <%= form.label :last_name %>
+	    <%= form.text_field :last_name %>
+	  </div>
+	  <div class="field">
+	    <%= form.label :email %>
+	    <%= form.text_field :email %>
+	  </div>
+
+	  <div class="actions">
+	    <%= form.submit %>
+	  </div>
+	<% end %>
+
+<%= link_to 'Edit', edit_company_path(@company) %> |
+<%= link_to 'Back', companies_path %>
